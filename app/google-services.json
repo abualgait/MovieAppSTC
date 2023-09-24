@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "124049225028",
+    "project_id": "movieappstc",
+    "storage_bucket": "movieappstc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124049225028:android:60449536de56ca2e249311",
+        "android_client_info": {
+          "package_name": "com.stc.muhammadsayed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWBntEkLHZOAQG3wn-T6vIQkGYW4n8WO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
