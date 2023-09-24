@@ -6,7 +6,7 @@ import com.stc.muhammadsayed.di.NetworkModule
 import com.stc.muhammadsayed.util.movieDisplayDateFormat
 import com.stc.muhammadsayed.util.movieDisplayDateYearFormat
 import com.stc.muhammadsayed.util.movieResponseDateFormat
-import kotlinx.android.parcel.IgnoredOnParcel
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.text.ParseException
 

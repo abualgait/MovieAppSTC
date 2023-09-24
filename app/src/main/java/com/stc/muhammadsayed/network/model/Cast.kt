@@ -2,7 +2,7 @@ package com.stc.muhammadsayed.network.model
 
 import com.google.gson.annotations.SerializedName
 import com.stc.muhammadsayed.di.NetworkModule
-import kotlinx.android.parcel.IgnoredOnParcel
+import kotlinx.parcelize.IgnoredOnParcel
 
 data class Cast(
     @SerializedName("character")
