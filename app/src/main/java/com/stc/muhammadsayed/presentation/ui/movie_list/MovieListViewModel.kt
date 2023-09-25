@@ -128,33 +128,29 @@ constructor(
     //use case #1
     private fun newSearch() {
         Log.d(TAG, "newSearch : query: ${query.value}, page: ${page.value}")
-        val selectedGenre = selectedCategory.value
+        selectedCategory.value?.let {
+            //filter by genre in all movies locally
+            val moviesInSelectedCategory = movies.value.filter { movie ->
+                movie.genreIds?.contains(selectedCategory.value?.id) == true
+            }
+            movies.value = moviesInSelectedCategory
+            return
+        }
         resetSearchState()
         searchMovies.execute(
             key = key,
             page = page.value,
             query =
-            if (selectedGenre != null) "" else query.value,
-            if (selectedGenre != null) false else connectivityManager.isNetworkAvailable.value
+            query.value,
+            connectivityManager.isNetworkAvailable.value
         ).onEach { dataState ->
             loading.value = dataState.loading
             dataState.data?.let { list ->
-                if (selectedGenre != null) {
-                    //filter by genre locally
-                    val moviesInSelectedCategory = list.filter { movie ->
-                        movie.genreIds?.contains(selectedGenre.id) == true
-                    }
-                    movies.value = moviesInSelectedCategory
-                } else {
-                    movies.value = list
-                }
-
+                movies.value = list
             }
             dataState.error?.let { error ->
                 Log.e(TAG, "newSearch: $error")
                 dialogQueue.appendErrorMessage("Error", error)
-
-
             }
 
         }.launchIn(viewModelScope)

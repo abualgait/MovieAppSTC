@@ -45,7 +45,7 @@ fun MovieCard(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
             modifier = Modifier,
         ) {
             val image = loadPicture(url = movie.imageUrl).value
-            if (image != null) {
+           image?.let {
                 Image(
                     bitmap = image.asImageBitmap(),
                     contentDescription = "Movie Image",
@@ -54,7 +54,12 @@ fun MovieCard(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
                         .height(225.dp),
                     contentScale = ContentScale.Crop,
                 )
-            }
+            }?: run {
+               Box(modifier = Modifier
+                   .fillMaxWidth()
+                   .height(225.dp))
+           }
+
         }
         ColumnSpacer(8)
         val padding = Modifier.padding(horizontal = 8.dp)

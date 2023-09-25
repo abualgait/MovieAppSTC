@@ -1,11 +1,16 @@
 package com.stc.muhammadsayed.presentation.compose
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -14,14 +19,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.stc.muhammadsayed.domain.model.Movie
 import com.stc.muhammadsayed.presentation.components.RowSpacer
+import com.stc.muhammadsayed.presentation.theme.Blue700
 import com.stc.muhammadsayed.util.genreToCommaSeparatedString
 import com.stc.muhammadsayed.util.loadPicture
-import java.util.Locale
 
 @Composable
 fun MovieInfo(movie: Movie) {
@@ -39,6 +48,12 @@ fun MovieInfo(movie: Movie) {
                         .width(60.dp)
                         .height(100.dp),
                     contentScale = ContentScale.Fit
+                )
+            } ?: run {
+                Box(
+                    modifier = Modifier
+                        .width(60.dp)
+                        .height(100.dp)
                 )
             }
 
@@ -89,29 +104,105 @@ fun MovieMetadata(
     movie: Movie,
     modifier: Modifier = Modifier
 ) {
-    val divider = "  •  "
-    val text = buildAnnotatedString {
-        append(movie.rating)
+    val context = LocalContext.current
+    val divider = "\n"
+    val annotatedString = buildAnnotatedString {
+
+        val styleTitle = SpanStyle(
+            fontStyle = typography.bodyMedium.fontStyle,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+
+        val styleDes = SpanStyle(
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+
+        withStyle(style = styleTitle) {
+
+            append("Homepage: ")
+        }
+        withStyle(
+            style = SpanStyle(
+                fontWeight = FontWeight.SemiBold,
+                textDecoration = TextDecoration.Underline,
+                color = Blue700,
+            )
+        ) {
+            addStringAnnotation(
+                "URL",
+                movie.homepage ?: "",
+                "Homepage: ".length,
+                "Homepage: ${movie.homepage}".length
+            )
+            append(movie.homepage)
+        }
         append(divider)
-        append(movie.date)
+
+        withStyle(style = styleTitle) {
+            append("Language: ")
+        }
+        withStyle(style = styleDes) {
+            append(movie.commaSeparatedLanguages)
+        }
+
         append(divider)
-        append(movie.runTime)
+
+        withStyle(style = styleTitle) {
+            append("Status: ")
+        }
+        withStyle(style = styleDes) {
+            append(movie.status)
+        }
         append(divider)
-        movie.original_language?.language()?.let { append(it) }
+
+        withStyle(style = styleTitle) {
+            append("Runtime: ")
+        }
+        withStyle(style = styleDes) {
+            append(movie.runTime)
+        }
+        append(divider)
+
+        withStyle(style = styleTitle) {
+            append("Budget: ")
+        }
+        withStyle(styleDes) {
+            append(movie.movieBudget)
+        }
+
+        append(divider)
+        withStyle(style = styleTitle) {
+            append("Revenue: ")
+        }
+        withStyle(styleDes) {
+            append(movie.movieRevenue)
+        }
+
     }
 
-    Text(
-        color = MaterialTheme.colorScheme.onBackground,
-        text = text,
-        style = typography.bodyMedium,
+    ClickableText(
+        onClick = {
+            annotatedString.getStringAnnotations("URL", it, it)
+                .firstOrNull()?.let { stringAnnotation ->
+                    context.openUrl(stringAnnotation.item)
+                }
+        },
+        text = annotatedString,
         modifier = modifier.alpha(0.5f)
     )
 
 }
 
-fun String.language(): String {
-    val loc = Locale(this)
-    return loc.getDisplayLanguage(loc)
+fun Context.openUrl(uri: String) {
+    var url = uri
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        url = "http://$url"
+    }
+
+    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(browserIntent)
+
 }
 
 

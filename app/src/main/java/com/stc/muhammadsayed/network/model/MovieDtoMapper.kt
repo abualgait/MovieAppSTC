@@ -24,7 +24,11 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
             title = model.title,
             vote_average = model.voteAverage,
             vote_count = model.voteCount,
-            status = model.status
+            status = model.status,
+            spokenLanguages = model.spokenLanguages,
+            budget = model.budget,
+            revenue = model.revenue,
+            homepage = model.homepage,
         )
     }
 
@@ -49,8 +53,11 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
             title = domainModel.title,
             voteAverage = domainModel.vote_average,
             voteCount = domainModel.vote_count,
-            status = domainModel.status
-
+            status = domainModel.status,
+            spokenLanguages = domainModel.spokenLanguages,
+            budget = domainModel.budget,
+            revenue = domainModel.revenue,
+            homepage = domainModel.homepage,
         )
 
     }
@@ -58,11 +65,6 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
     fun toDomainList(initial: List<MovieDto>): List<Movie> {
         return initial.map { mapToDomainModel(it) }
     }
-
-    fun fromDomainList(initial: List<Movie>): List<MovieDto> {
-        return initial.map { mapFromDomainModel(it) }
-    }
-
 
 }
 

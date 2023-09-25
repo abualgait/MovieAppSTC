@@ -53,6 +53,12 @@ fun MovieView(
                             contentScale = ContentScale.Crop
                         )
 
+                    } ?: run {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(IMAGE_HEIGHT.dp)
+                        )
                     }
 
                 }

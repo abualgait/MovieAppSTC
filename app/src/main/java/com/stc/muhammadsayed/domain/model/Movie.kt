@@ -3,6 +3,7 @@ package com.stc.muhammadsayed.domain.model
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.stc.muhammadsayed.di.NetworkModule
+import com.stc.muhammadsayed.util.languageToCommaSeparatedString
 import com.stc.muhammadsayed.util.movieDisplayDateFormat
 import com.stc.muhammadsayed.util.movieDisplayDateYearFormat
 import com.stc.muhammadsayed.util.movieResponseDateFormat
@@ -35,7 +36,11 @@ data class Movie(
     val title: String? = null,
     val video: Boolean? = null,
     val vote_average: Double? = null,
-    val vote_count: Int? = null
+    val vote_count: Int? = null,
+    @SerializedName("budget") val budget: String? = null,
+    @SerializedName("homepage") val homepage: String? = null,
+    @SerializedName("revenue") val revenue: String? = null,
+    @SerializedName("spoken_languages") val spokenLanguages: List<SpokenLanguage>? = null,
 ) : Parcelable {
 
 
@@ -82,9 +87,24 @@ data class Movie(
             }
         }
 
+
+    @IgnoredOnParcel
+    val commaSeparatedLanguages: String
+        get() = spokenLanguages?.languageToCommaSeparatedString() ?: ""
+
+    @IgnoredOnParcel
+    val movieBudget: String
+        get() = String.format("%s $", budget)
+
+
     @IgnoredOnParcel
     val runTime: String
-        get() = String.format("%s min", runtime)
+        get() = String.format("%s minutes", runtime)
+
+    @IgnoredOnParcel
+    val movieRevenue: String
+        get() = String.format("%s $", revenue)
+
 
 
 }

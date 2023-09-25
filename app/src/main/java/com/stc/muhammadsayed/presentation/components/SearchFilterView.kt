@@ -77,7 +77,7 @@ fun SearchFilterView(
                         BasicTextField(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 7.dp, horizontal = 10.dp),
+                                .padding(vertical = 10.dp, horizontal = 10.dp),
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Text,
                                 imeAction = ImeAction.Done,
@@ -124,7 +124,7 @@ fun SearchFilterView(
                             contentDescription = "clearSearch",
                             modifier = Modifier
                                 .align(Alignment.CenterEnd)
-                                .padding(10.dp)
+                                .padding(horizontal = 16.dp, vertical = 12.dp)
                                 .clickable {
                                     searchText = TextFieldValue("")
                                     onQueryChanged("")

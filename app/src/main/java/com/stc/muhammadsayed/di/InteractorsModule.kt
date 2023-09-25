@@ -57,15 +57,11 @@ object InteractorsModule {
     @Provides
     fun provideGetMoviesDetails(
         retrofitService: RetrofitService,
-        movieDao: MovieDao,
-        movieEntityMapper: MovieEntityMapper,
         movieDtoMapper: MovieDtoMapper,
     ): GetMovie {
         return GetMovie(
             retrofitService = retrofitService,
-            movieDao = movieDao,
-            movieDtoMapper = movieDtoMapper,
-            entityMapper = movieEntityMapper
+            movieDtoMapper = movieDtoMapper
         )
     }
 

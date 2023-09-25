@@ -3,6 +3,7 @@ package com.stc.muhammadsayed.network.model
 
 import com.google.gson.annotations.SerializedName
 import com.stc.muhammadsayed.domain.model.Genre
+import com.stc.muhammadsayed.domain.model.SpokenLanguage
 
 
 class MovieDto(
@@ -53,5 +54,17 @@ class MovieDto(
     val voteAverage: Double? = null,
 
     @SerializedName("vote_count")
-    val voteCount: Int? = null
+    val voteCount: Int? = null,
+
+    @SerializedName("budget")
+    val budget: String? = null,
+
+    @SerializedName("revenue")
+    val revenue: String? = null,
+
+    @SerializedName("homepage")
+    val homepage: String? = null,
+
+    @SerializedName("spoken_languages")
+    val spokenLanguages: List<SpokenLanguage>? = null,
 )

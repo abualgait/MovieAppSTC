@@ -20,10 +20,7 @@ class MovieEntityMapper : DomainMapper<MovieEntity, Movie> {
             poster_path = model.posterPath,
             releaseDate = model.releaseDate,
             vote_count = model.voteCount,
-            vote_average = model.voteAverage,
-
-
-            )
+            vote_average = model.voteAverage)
     }
 
     override fun mapFromDomainModel(domainModel: Movie): MovieEntity {
