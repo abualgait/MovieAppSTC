@@ -94,11 +94,9 @@ dependencies {
     //retrofit
     val retrofit = "2.9.0"
     val okHttp = "4.11.0"
-    val leak_canary = "2.12"
     implementation("com.squareup.retrofit2:retrofit:${retrofit}")
     implementation("com.squareup.retrofit2:converter-gson:${retrofit}")
     implementation("com.squareup.okhttp3:okhttp:${okHttp}")
-    implementation("com.squareup.leakcanary:leakcanary-android:${leak_canary}")
     implementation ("com.squareup.okhttp3:logging-interceptor:${okHttp}")
 
     //hilt
@@ -108,6 +106,11 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+
+    //glide
+    val glide = "4.16.0"
+    implementation("com.github.bumptech.glide:glide:${glide}")
+    ksp("com.github.bumptech.glide:compiler:${glide}")
 
 
 }

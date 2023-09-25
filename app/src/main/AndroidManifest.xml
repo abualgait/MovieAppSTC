@@ -16,6 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.STCMoviesAppMuhammadSayed"
         tools:targetApi="31">
+
+        <activity
+            android:name="com.stc.muhammadsayed.presentation.MovieListActivity"
+            android:exported="true"
+            android:theme="@style/Theme.STCMoviesAppMuhammadSayed">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
