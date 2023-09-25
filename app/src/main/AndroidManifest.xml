@@ -28,6 +28,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.stc.muhammadsayed.presentation.MovieDetailActivity"
+            android:exported="true"
+            android:theme="@style/Theme.STCMoviesAppMuhammadSayed" />
     </application>
 
 </manifest>

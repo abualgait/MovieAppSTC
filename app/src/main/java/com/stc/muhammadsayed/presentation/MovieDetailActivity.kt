@@ -1,15 +1,18 @@
 package com.stc.muhammadsayed.presentation
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.stc.muhammadsayed.presentation.ui.movie_list.MovieListScreen
-import com.stc.muhammadsayed.presentation.ui.movie_list.MovieListViewModel
+import com.stc.muhammadsayed.presentation.ui.movie.MovieDetailScreen
+import com.stc.muhammadsayed.presentation.ui.movie.MovieDetailViewModel
 import com.stc.muhammadsayed.presentation.util.ConnectivityManager
+import com.stc.muhammadsayed.util.STATE_KEY_MOVIE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -19,7 +22,16 @@ import javax.inject.Inject
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @AndroidEntryPoint
-class MovieListActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity() {
+
+    companion object {
+        fun startActivity(mActivity: Activity, movieId: Int? = null) =
+            Intent(mActivity, MovieDetailActivity::class.java).apply {
+                putExtra(STATE_KEY_MOVIE, movieId)
+            }.also {
+                mActivity.startActivity(it)
+            }
+    }
 
     @Inject
     lateinit var connectivityManager: ConnectivityManager
@@ -40,12 +52,16 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            val viewModel: MovieListViewModel = hiltViewModel()
-            MovieListScreen(
+            val viewModel: MovieDetailViewModel = hiltViewModel()
+            viewModel.movieId = intent.getIntExtra(STATE_KEY_MOVIE, -1)
+            MovieDetailScreen(
+                true,
                 isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
-                onNavigateToMovieDetailScreen = { MovieDetailActivity.startActivity(this, it.id) },
+                movieId = viewModel.movieId,
                 viewModel = viewModel
-            )
+            ) {
+                finish()
+            }
 
         }
 
