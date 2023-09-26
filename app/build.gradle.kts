@@ -112,5 +112,13 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:${glide}")
     ksp("com.github.bumptech.glide:compiler:${glide}")
 
+    //testing
+    val junitJupiter = "5.8.1"
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitJupiter}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitJupiter}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitJupiter}")
+    //mock server
+    testImplementation("com.squareup.okhttp3:mockwebserver:${okHttp}")
+    testImplementation("com.squareup.okhttp3:okhttp:${okHttp}")
 
 }
