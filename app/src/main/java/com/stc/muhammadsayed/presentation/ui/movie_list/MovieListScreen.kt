@@ -29,6 +29,7 @@ fun MovieListScreen(
 
     Log.d(TAG, "MovieListScreen: $viewModel")
     val movies = viewModel.movies.value
+    val filteredMovies = viewModel.filteredMovies.value
     val genres = viewModel.genres.value
     val query = viewModel.query.value
     val selectedCategory = viewModel.selectedCategory.value
@@ -55,7 +56,7 @@ fun MovieListScreen(
             )
             MovieList(
                 loading = loading,
-                movies = movies,
+                movies = filteredMovies.ifEmpty { movies },
                 onChangeMovieScrollPosition = viewModel::onChangeMovieScrollPosition,
                 page = page,
                 onNextPage = { viewModel.onTriggerEvent(MovieListEvent.NextPageEvent) },

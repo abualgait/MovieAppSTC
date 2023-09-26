@@ -40,6 +40,7 @@ constructor(
 ) : ViewModel() {
 
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
+    val filteredMovies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
     val genres: MutableState<List<Genre>> = mutableStateOf(ArrayList())
     val query = mutableStateOf("")
     val selectedCategory: MutableState<Genre?> = mutableStateOf(null)
@@ -128,12 +129,13 @@ constructor(
     //use case #1
     private fun newSearch() {
         Log.d(TAG, "newSearch : query: ${query.value}, page: ${page.value}")
+        filteredMovies.value = emptyList()
         selectedCategory.value?.let {
             //filter by genre in all movies locally
             val moviesInSelectedCategory = movies.value.filter { movie ->
                 movie.genreIds?.contains(selectedCategory.value?.id) == true
             }
-            movies.value = moviesInSelectedCategory
+            filteredMovies.value = moviesInSelectedCategory
             return
         }
         resetSearchState()
